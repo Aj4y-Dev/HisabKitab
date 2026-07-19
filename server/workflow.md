@@ -1,0 +1,1 @@
+first create like phoneno email fullName and then it sill redirect to choose the plan like business or family after click it he need to verify by the email the opt goes with 6 digit and used need to add it with in 1:30 sec after verify then add the password and then goes to dashboard
