@@ -15,13 +15,13 @@ import { AuthModule } from './auth/auth.module';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
-        entities: [],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'], //for development
         synchronize: true,
       }),
     }),
     AuthModule,
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
