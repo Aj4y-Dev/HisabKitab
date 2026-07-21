@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/home/navbar";
-import Footer from "@/components/home/fotter";
+import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/fotter";
 
 export const metadata: Metadata = {
   title: "HisabKitab",
