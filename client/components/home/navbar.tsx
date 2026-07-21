@@ -5,43 +5,43 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Menu, X, ChevronDown, ArrowRight, BookOpen } from "lucide-react";
 
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Features", href: "/features" },
+  { name: "Contact", href: "/contact" },
+];
+
+const resourceLinks = [
+  { name: "Blog", href: "/blog" },
+  { name: "Tutorials", href: "/tutorials" },
+  { name: "FAQ's", href: "/faq" },
+];
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Features", href: "/features" },
-    { name: "Contact", href: "/contact" },
-  ];
-
-  const resourceLinks = [
-    { name: "Documentation", href: "/docs" },
-    { name: "Guides", href: "/guides" },
-    { name: "Blog", href: "/blog" },
-  ];
-
   return (
-    <nav className="bg-white sticky top-0 z-50 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div className="flex items-center justify-between h-20">
+    <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-md bg-navy flex items-center justify-center">
+          <Link href="/" className="flex shrink-0 items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-navy">
               <BookOpen size={18} className="text-marigold" />
             </div>
-            <span className="font-bold text-xl text-navy tracking-tight">
+            <span className="text-xl font-bold tracking-tight text-navy">
               HisabKitab
             </span>
           </Link>
 
           {/* Desktop nav links — centered */}
-          <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-base font-medium text-charcoal hover:text-navy transition-colors"
+                className="text-base font-medium text-charcoal transition-colors hover:text-navy"
               >
                 {link.name}
               </Link>
@@ -53,11 +53,13 @@ export default function Navbar() {
               onMouseEnter={() => setResourcesOpen(true)}
               onMouseLeave={() => setResourcesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-base font-medium text-charcoal hover:text-navy transition-colors">
+              <button className="flex items-center gap-1 text-base font-medium text-charcoal transition-colors hover:text-navy">
                 Resources
                 <ChevronDown
                   size={16}
-                  className={`transition-transform ${resourcesOpen ? "rotate-180" : ""}`}
+                  className={`transition-transform ${
+                    resourcesOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
 
@@ -68,13 +70,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-lg border border-border py-2"
+                    className="absolute left-1/2 top-full mt-3 w-48 -translate-x-1/2 rounded-lg border border-border bg-white py-2 shadow-lg"
                   >
                     {resourceLinks.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block px-4 py-2 text-sm text-charcoal hover:bg-pale-blue-grey hover:text-navy transition-colors"
+                        className="block px-4 py-2 text-sm text-charcoal transition-colors hover:bg-pale-blue-grey hover:text-navy"
                       >
                         {item.name}
                       </Link>
@@ -86,10 +88,10 @@ export default function Navbar() {
           </div>
 
           {/* Right side: CTA */}
-          <div className="hidden md:flex items-center gap-4 shrink-0">
+          <div className="hidden shrink-0 items-center gap-4 md:flex">
             <Link
-              href="/get-started"
-              className="flex items-center gap-1.5 bg-marigold hover:bg-marigold-dark text-charcoal font-semibold text-base px-5 py-2.5 rounded-full transition-colors"
+              href="/register"
+              className="flex items-center gap-1.5 rounded-full bg-marigold px-5 py-2.5 text-base font-semibold text-charcoal transition-colors hover:bg-marigold-dark"
             >
               Get Started
               <ArrowRight size={16} />
@@ -98,8 +100,9 @@ export default function Navbar() {
 
           {/* Mobile menu toggle */}
           <button
-            className="md:hidden p-2 text-navy"
+            className="p-2 text-navy md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
@@ -114,7 +117,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden border-t border-border"
+            className="overflow-hidden border-t border-border md:hidden"
           >
             <div className="px-6 pb-5 pt-3">
               {navLinks.map((link) => (
@@ -128,7 +131,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <p className="px-2 pt-3 pb-1 text-xs font-semibold text-muted uppercase tracking-wide">
+              <p className="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-muted">
                 Resources
               </p>
               {resourceLinks.map((item) => (
@@ -144,7 +147,7 @@ export default function Navbar() {
 
               <Link
                 href="/get-started"
-                className="mt-4 flex items-center justify-center gap-1.5 bg-marigold text-charcoal font-semibold px-5 py-3 rounded-full"
+                className="mt-4 flex items-center justify-center gap-1.5 rounded-full bg-marigold px-5 py-3 font-semibold text-charcoal"
                 onClick={() => setMobileOpen(false)}
               >
                 Get Started
