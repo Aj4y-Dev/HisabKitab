@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/home/navbar";
+import Footer from "@/components/home/fotter";
 
 export const metadata: Metadata = {
-  title: "hisabKitab: Business Management for Nepali SMEs",
-  description: "Manage inventory, sales, khata, and staff all in one place.",
+  title: "HisabKitab",
+  description: "Business Management System",
 };
+
+const geist = Geist({
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -14,9 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white text-charcoal antialiased">
+      <body className={geist.className}>
         <Navbar />
-        <main>{children}</main>
+        {children}
+        <Footer />
       </body>
     </html>
   );
