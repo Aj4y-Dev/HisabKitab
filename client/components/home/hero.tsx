@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const ledgerRows = [
   { label: "Sales today", value: 48250, tag: "Received" },
   { label: "Supplier payment", value: -12400, tag: "Paid" },
-  { label: "Customer khata — Sita Traders", value: 6800, tag: "Due" },
+  { label: "Customer khata: Sita Traders", value: 6800, tag: "Due" },
 ];
 
 function useCountUp(target: number, start: boolean, duration = 1200) {
