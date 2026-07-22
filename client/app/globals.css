@@ -90,3 +90,7 @@ a:hover {
 .text-muted {
   color: var(--color-muted-text);
 }
+
+html {
+  scroll-behavior: smooth;
+}
