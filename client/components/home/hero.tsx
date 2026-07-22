@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ArrowRight, Check, PlayCircle } from "lucide-react";
+import { ArrowRight, Check, PlayCircle, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const ledgerRows = [
@@ -62,7 +62,8 @@ function LedgerCard() {
         {Array.from({ length: 5 }).map((_, i) => (
           <span
             key={i}
-            className="block h-2 w-2 rounded-full bg-pale-blue-grey ring-2 ring-white"
+            className="block h-2 w-2 rounded-full bg-white"
+            style={{ border: "2px solid #f5a623" }}
           />
         ))}
       </div>
@@ -161,8 +162,25 @@ export default function Hero() {
   };
 
   return (
-    <section className="overflow-hidden bg-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-20 sm:px-8 lg:grid-cols-2 lg:px-10 lg:py-28">
+    <section
+      id="hero"
+      className="relative flex min-h-[calc(100vh-5rem)] items-center overflow-hidden bg-white"
+    >
+      {/* Soft floating background accents */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-marigold/10 blur-3xl"
+        animate={{ y: [0, 24, 0], x: [0, -12, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-pale-blue-grey blur-3xl"
+        animate={{ y: [0, -20, 0], x: [0, 14, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-16 px-6 py-16 sm:px-8 lg:grid-cols-2 lg:px-10">
         {/* Left: copy */}
         <motion.div
           variants={container}
@@ -174,7 +192,7 @@ export default function Hero() {
             variants={item}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-pale-blue-grey px-3 py-1 text-xs font-medium text-navy"
           >
-            Built for family &amp; small businesses in Nepal
+            Built for shops &amp; small businesses in Nepal
           </motion.span>
 
           <motion.h1
@@ -191,7 +209,7 @@ export default function Hero() {
             className="mt-5 text-lg leading-relaxed text-charcoal/80"
           >
             Track sales, expenses, and customer credit the way you already do in
-            your ledger book except it adds itself up, never gets lost, and
+            your ledger book — except it adds itself up, never gets lost, and
             tells you who owes what before you have to ask.
           </motion.p>
 
@@ -226,6 +244,22 @@ export default function Hero() {
           <LedgerCard />
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.a
+        href="#about"
+        aria-label="Scroll to learn what HisabKitab is"
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 text-xs font-medium text-muted transition-colors hover:text-navy"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{
+          opacity: { delay: 1.2, duration: 0.5 },
+          y: { delay: 1.2, duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+        }}
+      >
+        Scroll to explore
+        <ChevronDown size={18} />
+      </motion.a>
     </section>
   );
 }
