@@ -7,7 +7,16 @@ import {
   useReducedMotion,
   type Variants,
 } from "motion/react";
-import { Boxes, Receipt, Users, LineChart, AlertTriangle } from "lucide-react";
+import {
+  Boxes,
+  Receipt,
+  Users,
+  LineChart,
+  AlertTriangle,
+  UsersRound,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 
 const AUTO_ADVANCE_MS = 4500;
 
@@ -32,6 +41,13 @@ const features = [
     title: "Customer Khata",
     description:
       "Track credit given to each customer and get a clear picture of who owes what, at a glance.",
+  },
+  {
+    id: "family",
+    icon: UsersRound,
+    title: "Family Accounts",
+    description:
+      "Invite family members under one head account. The head sees everyone's activity each member sees only their own.",
   },
   {
     id: "reports",
@@ -97,7 +113,7 @@ function BillingPreview() {
   const total = lines.reduce((sum, l) => sum + l.qty * l.price, 0);
 
   return (
-    <div className="rounded-xl border border-border bg-white p-5">
+    <div className="relative rounded-xl border border-border bg-white p-5">
       <p className="text-xs font-semibold uppercase tracking-wide text-muted">
         Invoice #0142
       </p>
@@ -172,6 +188,98 @@ function KhataPreview() {
   );
 }
 
+function FamilyPreview() {
+  const members = [
+    { name: "Sita (You Head)", spend: 24500, visibleToAll: true },
+    { name: "Ramesh", spend: 8200, visibleToAll: false },
+    { name: "Anita", spend: 5100, visibleToAll: false },
+    { name: "Bikash", spend: 11200, visibleToAll: false },
+  ];
+  const total = members.reduce((sum, m) => sum + m.spend, 0);
+
+  return (
+    <div className="w-full">
+      {/* Head summary */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="mb-4 flex items-center justify-between rounded-xl bg-navy px-4 py-3"
+      >
+        <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-white/70">
+          <Eye size={13} /> Head sees all
+        </span>
+        <span className="text-base font-bold tabular-nums text-white">
+          Rs {total.toLocaleString("en-IN")}
+        </span>
+      </motion.div>
+
+      {/* Connecting line from head down to members */}
+      <div className="relative">
+        <svg
+          className="absolute -top-2 left-4 h-4 w-px overflow-visible"
+          aria-hidden
+        >
+          <motion.line
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="16"
+            stroke="#e8edf5"
+            strokeWidth="2"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ delay: 0.3, duration: 0.3 }}
+          />
+        </svg>
+
+        <div className="space-y-2.5">
+          {members.map((m, i) => (
+            <motion.div
+              key={m.name}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.35 + i * 0.12, duration: 0.35 }}
+              className={`flex items-center justify-between rounded-lg border px-3.5 py-2.5 text-sm ${
+                m.visibleToAll
+                  ? "border-marigold/40 bg-marigold/10"
+                  : "border-border bg-white"
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pale-blue-grey text-xs font-semibold text-navy">
+                  {m.name.charAt(0)}
+                </span>
+                <span className="font-medium text-charcoal">{m.name}</span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="tabular-nums text-navy">
+                  Rs {m.spend.toLocaleString("en-IN")}
+                </span>
+                {!m.visibleToAll && (
+                  <span title="Only visible to this member and the head">
+                    <EyeOff size={13} className="text-muted" />
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.4 }}
+        className="mt-3 text-center text-xs text-muted"
+      >
+        Members only see their own the head sees everything
+      </motion.p>
+    </div>
+  );
+}
+
 function ReportsPreview() {
   const points = "0,60 30,45 60,50 90,25 120,32 150,10 180,15 210,0";
 
@@ -222,6 +330,7 @@ const previewMap: Record<FeatureId, () => React.JSX.Element> = {
   inventory: InventoryPreview,
   billing: BillingPreview,
   khata: KhataPreview,
+  family: FamilyPreview,
   reports: ReportsPreview,
 };
 
