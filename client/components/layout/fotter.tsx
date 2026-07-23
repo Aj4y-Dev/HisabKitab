@@ -22,7 +22,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-20 border-t border-slate-200 bg-[var(--color-pale-blue-grey)]">
+    <footer className="border-t border-slate-200 bg-[var(--color-pale-blue-grey)]">
       <div className="mx-auto max-w-7xl px-6 py-14 sm:px-8 lg:px-10">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
