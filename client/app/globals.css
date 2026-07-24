@@ -1,16 +1,36 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-navy: #1e3a5f;
+  --color-navy-dark: #152b47;
+  --color-steel-blue: #2e5a8f;
+  --color-sky-accent: #5b8fc7;
+  --color-pale-blue-grey: #e8eef5;
+  --color-charcoal: #1f2937;
+  --color-marigold: #f5a623;
+  --color-marigold-dark: #d6890f;
+  --color-marigold-light: #fbcb7c;
+  --color-border: #cbd5e1;
+  --color-muted-text: #64748b;
+
+  /* Dark mode surfaces */
+  --color-dark-bg: #0f1720;
+  --color-dark-surface: #182534;
+  --color-dark-surface-2: #1f2f42;
+  --color-dark-border: #2a3b4f;
+  --color-dark-text: #e2e8f0;
+  --color-dark-muted: #94a3b8;
+}
 
 :root {
-  /* Primary Brand Palette — Navy + Marigold */
-  --color-navy: #1e3a5f; /* headers, sidebar, nav background */
-  --color-steel-blue: #2e5a8f; /* primary buttons, links, active states */
-  --color-sky-accent: #5b8fc7; /* hover states, secondary icons, chart lines */
-  --color-pale-blue-grey: #e8eef5; /* section backgrounds, cards */
-  --color-white: #ffffff; /* base background */
-  --color-charcoal: #1f2937; /* body text */
-  --color-marigold: #f5a623; /* CTAs, due/alert badges, highlights */
-
-  /* Optional supporting shades (useful for hover/active/disabled states) */
+  --color-navy: #1e3a5f;
+  --color-steel-blue: #2e5a8f;
+  --color-sky-accent: #5b8fc7;
+  --color-pale-blue-grey: #e8eef5;
+  --color-white: #ffffff;
+  --color-charcoal: #1f2937;
+  --color-marigold: #f5a623;
   --color-navy-dark: #152b47;
   --color-marigold-dark: #d6890f;
   --color-marigold-light: #fbcb7c;
@@ -27,15 +47,12 @@ body {
     sans-serif;
 }
 
-/* Layout elements */
 .sidebar,
-.navbar,
-header {
+.navbar {
   background-color: var(--color-navy);
   color: var(--color-white);
 }
 
-/* Buttons */
 .btn-primary {
   background-color: var(--color-steel-blue);
   color: var(--color-white);
@@ -59,7 +76,6 @@ header {
   background-color: var(--color-marigold-dark);
 }
 
-/* Cards / sections */
 .card,
 .section-bg {
   background-color: var(--color-pale-blue-grey);
@@ -67,7 +83,6 @@ header {
   border-radius: 8px;
 }
 
-/* Links */
 a {
   color: var(--color-steel-blue);
 }
@@ -76,7 +91,6 @@ a:hover {
   color: var(--color-sky-accent);
 }
 
-/* Khata / due badges */
 .badge-due {
   background-color: var(--color-marigold);
   color: var(--color-charcoal);
@@ -86,11 +100,15 @@ a:hover {
   font-weight: 600;
 }
 
-/* Muted / secondary text */
 .text-muted {
   color: var(--color-muted-text);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+html.dark body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-text);
 }
